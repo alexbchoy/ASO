@@ -35,6 +35,10 @@ async function update(result){
     const rating = result.data.product_star_rating;
     const img = result.data.product_photo;
 
+    if(result.data.product_original_price != null){
+        calculateDiscount(result);
+    }
+
     console.log('Product Title:', product_title);
     console.log('Price:', price);
     console.log('Ratings:', rating);
@@ -50,4 +54,11 @@ async function update(result){
     }
     document.getElementById("image-frame").src = img;
     console.log("complete");
+}
+
+async function calculateDiscount(result){
+    const orgPrice = parseFloat(result.data.product_original_price.replace("$", ""));
+    const discPrice = parseFloat(result.data.product_price.replace("$", ""))
+    const discRate = Math.round((orgPrice - discPrice) / orgPrice * 100);
+    document.getElementById("discount").innerHTML = discRate + "%";
 }
