@@ -52,6 +52,9 @@ async function update(result){
     else{
         document.getElementById("rating").innerHTML = "N/A";
     }
+    if(product_title.length > 103){
+        document.getElementById("product-name").innerHTML = product_title.substring(0, 103);
+    }
     document.getElementById("image-frame").src = img;
     console.log("complete");
 }
